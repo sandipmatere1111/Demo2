@@ -1,5 +1,8 @@
 package com.example.demo.project2.services;
 
+import com.example.demo.project2.entities.Users;
+import com.example.demo.project2.repositories.UserRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

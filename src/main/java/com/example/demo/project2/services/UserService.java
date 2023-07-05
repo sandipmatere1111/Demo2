@@ -1,9 +1,11 @@
 package com.example.demo.project2.services;
 
+import com.example.demo.project2.entities.Client;
 import com.example.demo.project2.entities.Users;
 import com.example.demo.project2.exception.RequestException;
 import com.example.demo.project2.repositories.UserRepository;
 import com.example.demo.project2.views.UserView;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,36 @@ public class UserService {
         userView.setRole(user.getRole());
 
         return userView;
+    }
+
+    public void saveUser(UserView userView) throws RequestException {
+        Users user = userRepository.findUserById(userView.getId());
+
+        if (user != null) {
+            throw new RequestException("User already exists");
+        }
+
+        user = new Users();
+        user.setEmpId(userView.getEmpId());
+        user.setFirstName(userView.getFirstName());
+        user.setLastName(userView.getLastName());
+        user.setFullName(userView.getFullName());
+        user.setEmail(userView.getEmail());
+        user.setPassword(userView.getPassword());
+        user.setPhoneNumber(userView.getPhoneNumber());
+        user.setRole(userView.getRole());
+
+        userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) throws RequestException {
+        Users user = userRepository.findUserById(id);
+
+        if(user!=null && !user.getDelete()){
+            user.setDelete(true);
+        }else{
+            throw new RequestException("User doesn't Exist");
+        }
+        userRepository.save(user);
     }
 }

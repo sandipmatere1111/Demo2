@@ -17,10 +17,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class MySecurityConfig{
 
-    private User user;
-
-    private Users users;
-
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails userDetails = User.builder().

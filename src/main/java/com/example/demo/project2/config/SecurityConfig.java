@@ -27,7 +27,7 @@ public class SecurityConfig {
                             try {
                                 auth
                                         .antMatchers("/home/**").authenticated()
-                                        .antMatchers("/auth/login").anonymous() // Allow unauthenticated access
+                                        .antMatchers("/auth/login").anonymous()
                                         .anyRequest().authenticated().and()
                                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
                             } catch (Exception e) {
@@ -38,16 +38,5 @@ public class SecurityConfig {
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(csrf -> csrf.disable())
-//                .authorizeRequests(auth -> auth
-//                        .antMatchers("/home/**").authenticated()
-//                        .antMatchers("/auth/login").permitAll()
-//                        .anyRequest().authenticated());
-//        return http.build();
-//    }
 
 }

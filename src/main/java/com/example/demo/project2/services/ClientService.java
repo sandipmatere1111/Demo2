@@ -35,8 +35,7 @@ public class ClientService {
      client.setClientName(clientView.getClientName());
      client.setCurrency(clientView.getCurrency());
      client.setBillingMethod(clientView.getBillingMethod());
-//     client.setDeleted(clientView.getDeleted());
-
+     client.setDeleted(false);
      clientRepository.save(client);
   }
 
