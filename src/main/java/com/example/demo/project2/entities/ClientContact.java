@@ -2,8 +2,6 @@ package com.example.demo.project2.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -11,6 +9,7 @@ import javax.persistence.*;
 @Data
 public class ClientContact {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @JsonIgnore
@@ -28,4 +27,5 @@ public class ClientContact {
     private String phone;
     private String mobile;
     private String fax;
+    private Boolean deleted;
 }

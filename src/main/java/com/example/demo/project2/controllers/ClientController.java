@@ -47,24 +47,31 @@ public class ClientController {
 
     // Add a new client            done
     @PostMapping("/saveClient")
-    public void saveClient(@RequestBody ClientView clientView) throws RequestException {
+    public ResponseEntity<String> saveClient(@RequestBody ClientView clientView) throws RequestException {
         clientService.saveClient(clientView);
+        return new ResponseEntity<>("Client saved successfully", HttpStatus.OK);
     }
 
     //Save Client Contact deatails
     @PostMapping("/saveClientContact")
-    public ClientView saveClientContacts(@RequestParam Integer clientId,@RequestBody List<ClientContactView> clientContactViews) throws RequestException {
-        clientService.saveClientContacts(clientId,clientContactViews);
+    public ClientView saveClientContacts(@RequestParam Integer clientId,@RequestBody ClientContactView clientContactView) throws RequestException {
+        clientService.saveClientContacts(clientId,clientContactView);
         return clientService.getClient(clientId);
     }
 
     // Update an existing client
-    @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@RequestParam Integer id, @RequestBody ClientView updatedClient) throws Exception{
-          Client client = clientService.updateClient(id , updatedClient);
+    @PutMapping("/updateClient")
+    public ResponseEntity<Client> updateClient( @RequestBody ClientView updatedClient) throws Exception{
+          Client client = clientService.updateClient(updatedClient);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
+    @DeleteMapping("/deleteClientContact")
+    public ResponseEntity<String> deleteClientContact(@RequestParam Integer id) throws Exception{
+
+        clientService.deleteClientContact(id);
+        return new ResponseEntity<>("Client deleted successfully", HttpStatus.OK);
+    }
 
     // delete Client       Done
     @DeleteMapping("/deleteClient")

@@ -1,5 +1,7 @@
 package com.example.demo.project2.entities;
 
+import com.example.demo.project2.views.BillingMethod;
+import com.example.demo.project2.views.CurrencyType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,8 +16,13 @@ public class Client {
     private Integer id;
 
     private String clientName;
-    private String currency;
-    private String billingMethod;
+
+    @Enumerated(EnumType.STRING)
+    private CurrencyType currency;
+
+    @Enumerated(EnumType.STRING)
+    private BillingMethod billingMethod;
+
     private Boolean deleted;
 
 }

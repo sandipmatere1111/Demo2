@@ -11,8 +11,7 @@ public class ClientView {
     private Integer clientId;
 
     private String clientName;
-    private String currency;
-    private String billingMethod;
+    private CurrencyType currency;
+    private BillingMethod billingMethod;
     private List<ClientContact> clientContacts;
-//    private Boolean deleted;
 }
