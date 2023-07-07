@@ -62,6 +62,7 @@ public class ClientService {
         newClientContact.setPhone(clientContactView.getPhone());
         newClientContact.setMobile(clientContactView.getMobile());
         newClientContact.setFax(clientContactView.getFax());
+        newClientContact.setDeleted(false);
 
         clientContactRepository.save(newClientContact);
     }
@@ -86,9 +87,16 @@ public class ClientService {
 
   public Client updateClient (ClientView updatedClient) throws Exception{
      Client client = clientRepository.findClientById(updatedClient.getClientId());
-     if(client.getId()==null && client.getDeleted()){
+     if(client ==null){
          throw new RequestException("Client doesn't Exist");
      }
+
+      List<Client> clientList = clientRepository.getAll();
+      for(Client client1 : clientList){
+          if(client1.getClientName().equalsIgnoreCase(updatedClient.getClientName())){
+              throw new RequestException("Client Name already exists");
+          }
+      }
      client.setClientName(updatedClient.getClientName());
      client.setCurrency(updatedClient.getCurrency());
      client.setBillingMethod(updatedClient.getBillingMethod());

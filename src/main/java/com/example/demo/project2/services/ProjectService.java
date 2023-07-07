@@ -37,7 +37,7 @@ public class ProjectService {
         }
 
         projectView.setId(id);
-        projectView.setClientId(project.getClientId());
+        projectView.setClientId(project.getClient().getId());
         projectView.setProjectName(project.getProjectName());
         projectView.setProjectManager(project.getProjectManager());
         projectView.setProjectHead(project.getProjectHead());
@@ -57,9 +57,9 @@ public class ProjectService {
                 throw new RequestException("Project Name already exists");
             }
         }
-        project.setId(projectView.getId());
+//        project.setId(projectView.getId());
         project.setProjectName(projectView.getProjectName());
-        project.setClientId(projectView.getClientId());
+        project.setClient(client);
         project.setProjectHead(projectView.getProjectHead());
         project.setProjectManager(projectView.getProjectManager());
         project.setDeleted(false);
@@ -69,6 +69,35 @@ public class ProjectService {
             throw new RequestException("Duplicate project ID or client ID");
         }
     }
+
+    public Project updateProject(ProjectView updatedProject) throws Exception {
+        Project project= new Project();
+        if(updatedProject.getId()==null){
+            throw new RequestException("Project Not Found");
+        }
+        Optional<Project> optionalProject = projectRepository.findById(updatedProject.getId());
+
+        if(!optionalProject.isPresent()){
+            throw new RequestException("Project Not Found");
+        }else{
+            project = optionalProject.get();
+        }
+
+        List<Project> projectList = projectRepository.getAllProjects();
+        for (Project project1 : projectList) {
+            if (project1.getProjectName().equals(updatedProject.getProjectName())) {
+                throw new RequestException("Project Name already exists");
+            }
+        }
+
+        project.setProjectName(updatedProject.getProjectName());
+        project.setProjectHead(updatedProject.getProjectHead());
+        project.setProjectManager(updatedProject.getProjectManager());
+
+        projectRepository.save(project);
+        return project;
+    }
+
 
     public void deleteProject(Integer id) throws Exception{
 

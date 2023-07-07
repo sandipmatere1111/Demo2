@@ -37,10 +37,10 @@ public class UserService {
     }
 
     public void saveUser(UserView userView) throws RequestException {
-        Users user = userRepository.findUserById(userView.getId());
+        Users user = userRepository.findByEmpId(userView.getEmpId());
 
         if (user != null) {
-            throw new RequestException("User already exists");
+            throw new RequestException("User with empId already exist");
         }
 
         user = new Users();

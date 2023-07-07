@@ -2,6 +2,7 @@ package com.example.demo.project2.entities;
 
 import com.example.demo.project2.views.BillingMethod;
 import com.example.demo.project2.views.CurrencyType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class Client {
 
     @Enumerated(EnumType.STRING)
     private BillingMethod billingMethod;
+
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "client")
+//    private List<Project> projects;
 
     private Boolean deleted;
 

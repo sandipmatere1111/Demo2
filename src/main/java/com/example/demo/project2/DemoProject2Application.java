@@ -11,8 +11,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-//@ComponentScan("com.example.demo.project2.entities")
-//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @SpringBootApplication
 public class DemoProject2Application {
 	public static void main(String[] args) {

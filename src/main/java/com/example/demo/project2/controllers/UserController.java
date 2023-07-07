@@ -28,7 +28,7 @@ public class UserController {
         return userView;
     }
 
-    @GetMapping("/saveUser")
+    @PostMapping("/saveUser")
     public void saveUser(@RequestBody UserView userView) throws RequestException {
         userService.saveUser(userView);
     }

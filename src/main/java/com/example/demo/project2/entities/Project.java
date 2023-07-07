@@ -1,5 +1,6 @@
 package com.example.demo.project2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +14,13 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer clientId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+//    @Column(name = "client_id", insertable = false, updatable = false)
+//    private Integer clientId;
 
     private String projectName;
 
@@ -21,6 +28,7 @@ public class Project {
 
     private String projectManager;
 
+    @JsonIgnore
     private Boolean deleted;
 
 }

@@ -30,8 +30,9 @@ public class ProjectController {
     }
 
     @PostMapping("/saveProject")
-    public void saveProject(@RequestBody ProjectView projectView) throws RequestException {
+    public ResponseEntity <String> saveProject(@RequestBody ProjectView projectView) throws RequestException {
         projectService.saveProject(projectView);
+        return new ResponseEntity<>("Project Saved successfully", HttpStatus.OK);
     }
 
     @GetMapping("/getAllProjects")
@@ -41,6 +42,21 @@ public class ProjectController {
             throw new RequestException("No clients found");
         }
         return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @GetMapping("/getProjectsByClient")
+    public ResponseEntity<List<Project>> getProjects(@RequestParam Integer clientId) throws RequestException{
+        List<Project> projects = projectRepository.findByClientId(clientId);
+        if (projects.isEmpty()) {
+            throw new RequestException("No projects found");
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateProject")
+    public ResponseEntity<Project> updateProject(@RequestBody ProjectView updatedProject) throws Exception {
+        Project project = projectService.updateProject(updatedProject);
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteProject")

@@ -27,5 +27,6 @@ public class ClientContact {
     private String phone;
     private String mobile;
     private String fax;
+    @JsonIgnore
     private Boolean deleted;
 }
