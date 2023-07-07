@@ -1,5 +1,6 @@
 package com.example.demo.project2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,6 @@ public class Users {
     private Integer empId;
     private String firstName;
     private String lastName;
-    private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
